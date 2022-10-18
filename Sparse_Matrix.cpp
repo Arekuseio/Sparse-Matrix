@@ -40,6 +40,19 @@ namespace SMatrix {
         }
         return 0.f;
     }
+
+    std::vector<double> SparseMatrix::operator* (const std::vector<double>& v) const {
+        if (v.size() != size) {
+            throw "mismatch of dimensions";
+        }
+        std::vector<double> result(v.size(), 0.f);
+        for (size_t i = 0; i < size; ++i) {
+            for (size_t j = row_val[i]; j < row_val[i + 1]; ++j) {
+                result[i] += val[i] * v[column_val[i]];
+            }
+        }
+        return result;
+    }
 }
 
 int main (int argc, char* argv[]) {
@@ -54,5 +67,8 @@ int main (int argc, char* argv[]) {
         }
         cout << endl;
     }
+
+    vector<double> f = {1, 1, 1};
+    f = A * f;
     return 0;
 }
