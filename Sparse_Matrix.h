@@ -1,14 +1,15 @@
 #pragma once
 #include <vector>
+#include <iostream>
 
 namespace SMatrix {
 
 class SparseMatrix {
-    std::vector<double> val;
-    std::vector<size_t> column_val;
-    std::vector<size_t> row_val;
-    size_t size;
-    size_t nnz; // number of non-zero elements
+    std::vector<double> val;        // vector of all non-zero elements in matrix
+    std::vector<size_t> column_val; // number of column for each non-zero element
+    std::vector<size_t> row_val;    // number of non-zero elements from row number i - 1 to i, always contains 0 as first element
+    size_t size;                    // number of dimensions in matrix
+    size_t nnz;                     // number of non-zero elements
 
     struct SparseMatrixLine {
         size_t row = 0;
@@ -27,6 +28,8 @@ public:
     std::vector<double> operator* (const std::vector<double>& v) const;
 
     std::vector<double> SolveSystem(std::vector<double> f);
+
+    
 };
 
 }

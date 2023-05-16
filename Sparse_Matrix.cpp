@@ -55,20 +55,29 @@ namespace SMatrix {
     }
 }
 
+std::ostream& operator<<(std::ostream& stream, SMatrix::SparseMatrix& matrix) {
+    for (auto i = 0; i < matrix.getSize(); ++i) {
+        for (auto j = 0; j < matrix.getSize(); ++j) {
+            stream << matrix[i][j] << " ";
+        }
+        stream << '\n';
+    }
+    return stream;
+}
+
 int main (int argc, char* argv[]) {
     using namespace std;
     vector<double> a = {1, 2, 3};
     vector<size_t> b = {0, 1, 2};
     vector<size_t> c = {0, 1, 2, 3};
     SMatrix::SparseMatrix A(a, 3, b, c);
-    for (size_t i = 0; i < A.getSize(); ++i) {
-        for (size_t j = 0; j < A.getSize(); ++j) {
-            cout << A[i][j] << " ";
-        }
-        cout << endl;
-    }
+    cout << A;
 
     vector<double> f = {1, 1, 1};
     f = A * f;
+    for (auto& a : f) {
+        cout << a << '\n';
+    }
+
     return 0;
 }
