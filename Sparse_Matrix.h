@@ -26,10 +26,17 @@ public:
     SparseMatrix::SparseMatrixLine operator[] (size_t row) const;
 
     std::vector<double> operator* (const std::vector<double>& v) const;
-
-    std::vector<double> SolveSystem(std::vector<double> f);
-
     
 };
 
+    // Conjugate gradient method
+    std::vector<double> SolveCGM(std::vector<double> f, const SparseMatrix& A);
+
+    std::vector<double> CalcResidual(const SparseMatrix& A, const std::vector<double>& x, const std::vector<double>& f);
 }
+
+std::vector<double> operator-(const std::vector<double>& lhs, const std::vector<double>& rhs);
+std::vector<double> operator+(const std::vector<double>& lhs, const std::vector<double>& rhs);
+std::vector<double> operator*(const double a, const std::vector<double>& f);
+std::ostream& operator<<(std::ostream& stream, std::vector<double> v);
+std::ostream& operator<<(std::ostream& stream, SMatrix::SparseMatrix& matrix);
